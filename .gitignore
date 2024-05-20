@@ -1,0 +1,54 @@
+# Ignore target directories in any subfolder
+**/target/
+
+# Ignore Cargo.lock files in any subfolder
+**/Cargo.lock
+
+# Rust/Cargo related
+**/*.rs.bk
+
+# Packages
+*.crate
+
+# C/C++ related
+**/*.o
+**/*.obj
+**/*.so
+**/*.exe
+**/*.out
+**/*.dll
+**/*.dylib
+**/*.lib
+**/*.a
+**/*.lo
+**/*.la
+
+# Ignore build directories
+**/build/
+**/cmake-build-*/
+
+# Backup files
+*.bak
+*.swp
+
+# IntelliJ related
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# VS Code related
+.vscode/
+
+# node_modules
+node_modules/
+
+# Byebug history
+.byebug_history
+
+# Other common files
+*.d
+*.tmp
+
+
