@@ -5,7 +5,7 @@
     "type": "lldb",
     "request": "launch",
     "cwd": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup",
-    "program": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup/add_path_to_binary",
+    "program": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup/target/debug/dap-setup",
     "args": []
   }
 }

@@ -52,3 +52,7 @@ node_modules/
 *.tmp
 
 
+# Ignore dap-config
+**/.dap-config/
+
+
