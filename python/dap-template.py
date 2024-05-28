@@ -38,18 +38,21 @@ def generate_config(target_lang='') -> dict:
     project_name = os.path.basename(cwd)
     if target_lang == 'rust':
         program = os.path.join(cwd, 'target', 'debug', project_name)
+        source_languages = ['rust']
     else:
         program = os.path.join(cwd, 'src', 'run')
+        source_languages = []
 
     config_gen = {
         'target_lang' : target_lang,
         'config' : {
             'name'      : 'Launch file',
-            'type'      : 'lldb',
+            'type'      : 'codelldb',
             'request'   : 'launch',
             'cwd'       : cwd,
             'program'   : program, 
             'args'      : [],
+            'sourceLanguages' : source_languages,
         }
     }
 

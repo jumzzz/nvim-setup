@@ -72,16 +72,76 @@ vim.api.nvim_set_keymap('n', '<Leader>dl', '<cmd>lua require\'dap\'.run_last()<C
 -- Adapters for codelldb
 dap.adapters.codelldb = {
   type = 'server',
-  port = "13000",
+  port = "${port}",
   executable = {
     -- CHANGE THIS to your path!
     command = '/Users/jums/projects/nvim/codelldb-aarch64-darwin/extension/adapter/codelldb',
     args = {"--port", "${port}"},
-
     -- On windows you may have to uncomment this:
     -- detached = false,
   }
 }
+
+local json = require('dkjson')
+local uv = vim.loop
+
+-- Function to read the config file
+local function read_config_file(file_path)
+    local fd = uv.fs_open(file_path, "r", 438)
+    if not fd then return nil end
+    local stat = uv.fs_fstat(fd)
+    if not stat then return nil end
+    local data = uv.fs_read(fd, stat.size, 0)
+    uv.fs_close(fd)
+    if not data then return nil end
+    return json.decode(data)
+end
+
+-- Path to the config file
+local config_file_path = vim.fn.getcwd() .. '/.dap-config/config.json'
+local config = read_config_file(config_file_path)
+
+-- Set up dap configurations based on the target_lang
+if config then
+    local target_lang = config.target_lang
+    local dap_config = {
+        name = config.config.name,
+        type = config.config.type,
+        request = config.config.request,
+        program = config.config.program,
+        cwd = config.config.cwd,
+        stopOnEntry = config.config.stopOnEntry or false,
+        args = config.config.args or {},
+	sourceLanguages = config.config.sourceLanguages
+    }
+
+    if target_lang == "rust" then
+        dap_config.initCommands = function()
+            -- Find out where to look for the pretty printer Python module
+            local rustc_sysroot = vim.fn.trim(vim.fn.system('rustc --print sysroot'))
+
+            local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+            local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+
+            local commands = {}
+            local file = io.open(commands_file, 'r')
+            if file then
+                for line in file:lines() do
+                    table.insert(commands, line)
+                end
+                file:close()
+            end
+            table.insert(commands, 1, script_import)
+
+            return commands
+        end
+        dap.configurations.rust = { dap_config }
+    elseif target_lang == "c" then
+        dap.configurations.c = { dap_config }
+    elseif target_lang == "cpp" then
+        dap.configurations.cpp = { dap_config }
+    end
+end
 
 
 

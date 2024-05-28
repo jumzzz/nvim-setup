@@ -14,3 +14,7 @@ require('lualine-setup')
 require('general-setup')
 
 require('dap-setup')
+
+require('nerdtree-setup')
+
+require('treesitter-setup')

@@ -2,10 +2,13 @@
   "target_lang": "rust",
   "config": {
     "name": "Launch file",
-    "type": "lldb",
+    "type": "codelldb",
     "request": "launch",
     "cwd": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup",
     "program": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup/target/debug/dap-setup",
-    "args": []
+    "args": [],
+    "sourceLanguages": [
+      "rust"
+    ]
   }
 }
