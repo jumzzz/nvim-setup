@@ -4,8 +4,8 @@
     "name": "Launch file",
     "type": "codelldb",
     "request": "launch",
-    "cwd": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup",
-    "program": "/Users/jums/projects/nvim-setup/config-test/dap/rust/dap-setup/target/debug/dap-setup",
+    "cwd": "/Users/jums/.config/nvim/config-test/dap/rust/dap-setup",
+    "program": "/Users/jums/.config/nvim/config-test/dap/rust/dap-setup/target/debug/dap-setup",
     "args": [],
     "sourceLanguages": [
       "rust"
