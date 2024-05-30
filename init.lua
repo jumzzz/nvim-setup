@@ -18,3 +18,5 @@ require('dap-setup')
 require('nerdtree-setup')
 
 require('treesitter-setup')
+
+require('vratio-setup')
